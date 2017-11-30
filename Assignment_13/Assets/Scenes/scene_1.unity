@@ -181,6 +181,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 866cf270f3539104392dbcc2bf99d4c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerLazer: {fileID: 1981066536133996, guid: c34da046926013b42afac42b8c7ffb66,
+    type: 2}
 --- !u!4 &1119290951
 Transform:
   m_ObjectHideFlags: 0

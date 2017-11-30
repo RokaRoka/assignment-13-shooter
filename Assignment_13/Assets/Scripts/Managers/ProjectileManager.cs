@@ -1,16 +1,50 @@
-﻿using System.Collections;
+﻿using System;
+using System.Threading;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public class ProjectileEventArgs : EventArgs {
+	public Vector2 spawnPosition { get; set; }
+	public Quaternion spawnRotation { get; set; }
+}
+
 public class ProjectileManager : MonoBehaviour {
 
+	//Event holders
+	private GameObject player;
+
+	//Projectile prefabs
+	public GameObject playerLazer;
+
+
 	// Use this for initialization
-	void Start () {
+	private void Start ()
+	{
+		//Player
+		player = GameObject.FindGameObjectWithTag("Player");
+		//Like, Comment, and Subscribe to events
+		player.GetComponent<PlayerInput>().PlayerFired += OnPlayerFired;
+	}
+
+	protected virtual void OnPlayerFired(object source, ProjectileEventArgs e)
+	{
+		FirePlayerProjectile(e.spawnPosition);
+	}
+
+	private void FirePlayerProjectile(Vector2 initPos)
+	{
+		GameObject lazer = Instantiate(playerLazer, initPos, Quaternion.identity);
+	}
+
+	protected virtual void OnEnemyFired(object source, ProjectileEventArgs e) 
+	{
+
+	}
+
+	private void FireEnemyProjectile(Vector2 initPos, Vector2 initRot, int faction)
+	{
 		
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
 }

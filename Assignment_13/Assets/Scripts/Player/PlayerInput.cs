@@ -10,7 +10,7 @@ public class PlayerInput : MonoBehaviour {
 	private PlayerMovement playerMovement;
 
 	//public delegate void
-	public delegate void PlayerInputEventHandler(object source, EventArgs args);
+	public delegate void PlayerInputEventHandler(object source, ProjectileEventArgs args);
 
 	//shooting event
 	public event PlayerInputEventHandler PlayerFired;
@@ -52,14 +52,15 @@ public class PlayerInput : MonoBehaviour {
 		if (delta.x != 0 || delta.y != 0)
 			playerMovement.MovePlayer(delta);
 
-		if (Input.GetKeyDown (KeyCode.Space) || shootInputCountdown <= 0) {
+		if (Input.GetKeyDown (KeyCode.Space) && shootInputCountdown <= 0) {
 			//player shoot
+			OnPlayerFired();
 		}
 	}
 
 	protected virtual void OnPlayerFired()
 	{
 		if (PlayerFired != null)
-			PlayerFired(this, EventArgs.Empty);
+			PlayerFired(this, new ProjectileEventArgs() { spawnPosition = transform.position});
 	}
 }

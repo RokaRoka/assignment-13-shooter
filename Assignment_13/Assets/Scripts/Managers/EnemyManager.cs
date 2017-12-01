@@ -32,6 +32,8 @@ public class EnemyManager : MonoBehaviour {
 		{
 			int randomSpawnInt = UnityEngine.Random.Range(0, enemySpawnPositions.Length);
 			SpawnEnemy(0, enemySpawnPositions[randomSpawnInt].transform.position);
+
+			t -= spawnFreq;
 		}
 	}
 	

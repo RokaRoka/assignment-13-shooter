@@ -16,7 +16,7 @@ public class PlayerInput : MonoBehaviour {
 	public event PlayerInputEventHandler PlayerFired;
 
 	//player shoot input delay
-	private float shootInputDelay = 0.1f;
+	private float shootInputDelay = 0.07f;
 	private float shootInputCountdown = 0;
 
 	private void Start()
@@ -39,7 +39,7 @@ public class PlayerInput : MonoBehaviour {
 
 	private void CheckInput()
 	{
-		Vector2 delta = Vector2.zero;
+		Vector2Int delta = Vector2Int.zero;
 
 		if (Input.GetKey(KeyCode.UpArrow))
 			delta.y += 1;
@@ -52,8 +52,9 @@ public class PlayerInput : MonoBehaviour {
 		if (delta.x != 0 || delta.y != 0)
 			playerMovement.MovePlayer(delta);
 
-		if (Input.GetKeyDown (KeyCode.Space) && shootInputCountdown <= 0) {
+		if (Input.GetKey (KeyCode.Space) && shootInputCountdown <= 0) {
 			//player shoot
+			shootInputCountdown = shootInputDelay;
 			OnPlayerFired();
 		}
 	}

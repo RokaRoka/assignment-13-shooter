@@ -214,9 +214,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   faction: 0
-  factionBlue: {r: 0.28254756, g: 0.5491066, b: 0.9852941, a: 0}
-  factionRed: {r: 0.97794116, g: 0.15819634, b: 0.5143608, a: 0}
-  factionGreen: {r: 0.3455882, g: 1, b: 0.64797145, a: 0}
+  factionBlue: {r: 0.28254756, g: 0.5491066, b: 0.9852941, a: 1}
+  factionRed: {r: 0.97794116, g: 0.15819634, b: 0.5143608, a: 1}
+  factionGreen: {r: 0.3455882, g: 1, b: 0.64797145, a: 1}
 --- !u!212 &212190357476523048
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -59,7 +59,7 @@ public class FactionScript : MonoBehaviour {
 
     public void SetFactionMaterial()
     {
-        sr.material.color = factionColorArray[faction];
+        sr.color = factionColorArray[faction];
     }
 
     public bool CompareFaction(int otherFaction)

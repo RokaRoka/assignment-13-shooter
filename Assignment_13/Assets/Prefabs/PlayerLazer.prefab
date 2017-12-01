@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 50918611080604014}
   - component: {fileID: 114390959863540912}
   - component: {fileID: 61370145823762270}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PlayerLazer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bd1d4d673ed6c84b9cf11248da31427, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lazerDamage: 4
 --- !u!212 &212530118937871270
 SpriteRenderer:
   m_ObjectHideFlags: 1

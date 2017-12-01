@@ -39,7 +39,7 @@ public class PlayerInput : MonoBehaviour {
 
 	private void CheckInput()
 	{
-		Vector2Int delta = Vector2Int.zero;
+		Vector2 delta = Vector2.zero;
 
 		if (Input.GetKey(KeyCode.UpArrow))
 			delta.y += 1;

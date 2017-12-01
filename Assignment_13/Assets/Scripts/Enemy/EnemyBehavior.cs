@@ -11,11 +11,12 @@ public class EnemyBehavior : MonoBehaviour {
 	public delegate void EnemyFiringEventHandler (object source, ProjectileEventArgs e);
 
 	public event EnemyFiringEventHandler EnemyFired;
+
+	private int faction = 0;
 	
 	//spawn position
 	private Vector3 origin;
-
-
+	
 	public AnimationCurve animExponentialSlope;
 	//Enemy movement timing
 	private float t = 0;
@@ -35,11 +36,19 @@ public class EnemyBehavior : MonoBehaviour {
 	private void Start ()
 	{
 		origin = transform.position;
+		faction = GetComponent<FactionScript>().faction;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		EnemyNormalMove();
+		if (faction == 0)
+		{
+			EnemyNormalMove();
+		}
+		else
+		{
+			EnemyCurvedMove();
+		}
 		Tick();
 	}
 
@@ -65,11 +74,23 @@ public class EnemyBehavior : MonoBehaviour {
 
 	private void Tick()
 	{
-		t += Time.deltaTime * (frequency/4);
-		if (t >= 2f)
+		if (hit_t > 0)
 		{
-			t -= 2f;
+			hit_t += Time.deltaTime * (frequency/4);
 		}
+		else
+		{
+			t += Time.deltaTime * (frequency/4);
+			if (t >= 2f)
+			{
+				t -= 2f;
+			}	
+		}
+	}
+
+	public void AddHitStun()
+	{
+		hit_t = hitStunTime;
 	}
 	
 	protected virtual void OnEnemyFired()

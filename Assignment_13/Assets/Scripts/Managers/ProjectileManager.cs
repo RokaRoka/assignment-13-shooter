@@ -18,6 +18,7 @@ public class ProjectileManager : MonoBehaviour {
 	//Projectile prefabs
 	public GameObject playerLazer;
 
+	public GameObject enemyShot;
 
 	// Use this for initialization
 	private void Start ()

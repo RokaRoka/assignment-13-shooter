@@ -36,7 +36,6 @@ public class LazerScript : MonoBehaviour
 	{
 		if (other.transform.CompareTag("Enemy"))
 		{
-			Debug.Log("Enemy Collision :O");
 			
 			float damage = 0;
 			

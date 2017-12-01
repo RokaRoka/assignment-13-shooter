@@ -13,7 +13,10 @@ public class EnemyBehavior : MonoBehaviour {
 	public event EnemyFiringEventHandler EnemyFired;
 
 	private int faction = 0;
-	
+
+    //player
+    private GameObject player;
+
 	//spawn position
 	private Vector3 origin;
 	
@@ -28,13 +31,17 @@ public class EnemyBehavior : MonoBehaviour {
 	//hit stun
 	private float hit_t = 0;
 	private float hitStunTime = 2f;
-	
-	//Enemy shots per cycle
-	
-	
-	// Use this for initialization
-	private void Start ()
+
+    public bool isTicking = true;
+
+    //Enemy shots per cycle
+    private float shot_t = 0;
+    public float shotFrequency = 1.5f;
+    
+    // Use this for initialization
+    private void Start ()
 	{
+        player = GameObject.FindGameObjectWithTag("Player");
 		origin = transform.position;
 		faction = GetComponent<FactionScript>().faction;
 	}
@@ -49,7 +56,8 @@ public class EnemyBehavior : MonoBehaviour {
 		{
 			EnemyCurvedMove();
 		}
-		Tick();
+		if (isTicking)
+            Tick();
 	}
 
 	private void EnemyNormalMove()
@@ -81,11 +89,20 @@ public class EnemyBehavior : MonoBehaviour {
 		else
 		{
 			t += Time.deltaTime * (frequency/4);
-			if (t >= 2f)
-			{
-				t -= 2f;
-			}	
-		}
+            if (t >= 2f)
+            {
+                t -= 2f;
+            }
+            shot_t += Time.deltaTime;
+            if (shot_t >= shotFrequency)
+            {
+                shot_t -= shotFrequency;
+                if (player == null) return;
+                Vector2 direction = player.transform.position - transform.position;
+                EnemyFired(this, new ProjectileEventArgs { spawnPosition = transform.position, spawnRotation = Quaternion.LookRotation(Vector3.forward, direction), shipFaction = faction });
+            }
+
+        }
 	}
 
 	public void AddHitStun()
@@ -98,4 +115,10 @@ public class EnemyBehavior : MonoBehaviour {
 		if (EnemyFired != null)
 			EnemyFired(this, new ProjectileEventArgs() { spawnPosition = transform.position});
 	}
+
+    private void OnDestroy()
+    {
+        EnemyFired = null;
+    }
+
 }

@@ -7,7 +7,7 @@ using UnityEngine;
 public class ProjectileEventArgs : EventArgs {
 	public Vector2 spawnPosition { get; set; }
 	public Quaternion spawnRotation { get; set; }
-	public int faction { get; set; }
+	public int shipFaction { get; set; }
 }
 
 public class ProjectileManager : MonoBehaviour {
@@ -18,16 +18,7 @@ public class ProjectileManager : MonoBehaviour {
 	//Projectile prefabs
 	public GameObject playerLazer;
 
-	public GameObject enemyShot;
-
-	// Use this for initialization
-	private void Start ()
-	{
-		//Player
-		player = GameObject.FindGameObjectWithTag("Player");
-		//Like, Comment, and Subscribe to events
-		player.GetComponent<PlayerInput>().PlayerFired += OnPlayerFired;
-	}
+	public GameObject[] enemyShotArray;
 
 	protected virtual void OnPlayerFired(object source, ProjectileEventArgs e)
 	{
@@ -41,12 +32,19 @@ public class ProjectileManager : MonoBehaviour {
 	
 	public virtual void OnEnemyFired(object source, ProjectileEventArgs e) 
 	{
-		//FireEnemyProjectile();
+		FireEnemyProjectile(e.spawnPosition, e.spawnRotation, e.shipFaction);
 	}
 
-	private void FireEnemyProjectile(Vector2 initPos, Vector2 initRot, int faction)
+	private void FireEnemyProjectile(Vector2 initPos, Quaternion initRot, int faction)
 	{
-		
+        Debug.Log(faction);
+        GameObject enemyBullet = Instantiate(enemyShotArray[faction], initPos, initRot);
 	}
+
+    public void SubscribeToPlayerEvent(GameObject player)
+    {
+        //Like, Comment, and Subscribe to events
+        player.GetComponent<PlayerInput>().PlayerFired += OnPlayerFired;
+    }
 
 }

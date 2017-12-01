@@ -9,7 +9,9 @@ public class RestartControl : MonoBehaviour
 	public delegate void RestartGameEventHandler(object source, EventArgs e);
 
 	public event RestartGameEventHandler RestartingGame;
-	
+
+    public GameObject playerPrefab;
+
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetKeyDown(KeyCode.R))
@@ -22,6 +24,7 @@ public class RestartControl : MonoBehaviour
 	{
 		if (RestartingGame != null)
 			RestartingGame(this, EventArgs.Empty);
+        Instantiate(playerPrefab, playerPrefab.transform.position, playerPrefab.transform.rotation);
 	}
 
 }

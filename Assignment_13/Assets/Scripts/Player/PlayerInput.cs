@@ -9,6 +9,10 @@ public class PlayerInput : MonoBehaviour {
 	//Player movement ref
 	private PlayerMovement playerMovement;
 
+    private ProjectileManager projMan;
+
+    private FactionScript factionScript;
+
 	//public delegate void
 	public delegate void PlayerInputEventHandler(object source, ProjectileEventArgs args);
 
@@ -19,10 +23,16 @@ public class PlayerInput : MonoBehaviour {
 	private float shootInputDelay = 0.07f;
 	private float shootInputCountdown = 0;
 
-	private void Start()
+    private void Awake()
+    {
+        projMan = GameObject.FindGameObjectWithTag("ProjectileManager").GetComponent<ProjectileManager>();
+        projMan.SubscribeToPlayerEvent(gameObject);
+    }
+
+    private void Start()
 	{
 		playerMovement = GetComponent<PlayerMovement>();
-
+        factionScript = GetComponent<FactionScript>();
 	}
 
 	// Update is called once per frame
@@ -57,6 +67,16 @@ public class PlayerInput : MonoBehaviour {
 			shootInputCountdown = shootInputDelay;
 			OnPlayerFired();
 		}
+
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            int newfaction;
+            if (factionScript.faction == 2)
+                newfaction = 0;
+            else
+                newfaction = factionScript.faction + 1;
+            factionScript.DetermineFaction(newfaction);
+        }
 	}
 
 	protected virtual void OnPlayerFired()

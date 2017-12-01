@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour {
 
 	//Enemy health amount
-	public float healthValue = 20f;
+	public float healthValue = 24f;
 
 	public void DealDamage(float value)
 	{

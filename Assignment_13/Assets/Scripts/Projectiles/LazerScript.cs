@@ -9,7 +9,7 @@ public class LazerScript : MonoBehaviour
 	
 	private Rigidbody2D rb;
 
-	public float lazerDamage = 4f;
+	public float lazerDamage = 2f;
 	
 	private float travelSpeed = 18f;
 
@@ -38,7 +38,9 @@ public class LazerScript : MonoBehaviour
 		{
 			
 			float damage = 0;
-			
+
+            if (player == null) return;
+
 			if (other.gameObject.GetComponent<FactionScript>().CompareFaction(GetPlayerFaction()))
 			{
 				damage = lazerDamage;
@@ -48,6 +50,7 @@ public class LazerScript : MonoBehaviour
 				damage = lazerDamage * 1.75f;
 			}
 			other.transform.GetComponent<EnemyHealth>().DealDamage(damage);
+            Destroy(gameObject);
 		}
 	}
 

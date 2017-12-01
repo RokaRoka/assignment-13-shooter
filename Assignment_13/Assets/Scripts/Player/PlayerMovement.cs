@@ -44,4 +44,9 @@ public class PlayerMovement : MonoBehaviour {
 		rb.velocity = Vector2.zero;
 		transform.position = Vector3.down;
 	}
+
+    private void OnDestroy()
+    {
+        restartControl.RestartingGame -= OnRestartingGame;
+    }
 }

@@ -25,7 +25,9 @@ public class EnemyManager : MonoBehaviour
 	//Spawn timer
 	private float t = 0;
 
-	private float spawnFreq = 1.25f;
+	private float spawnFreq = 1.2f;
+
+    public bool isTicking = true;
 
 	private void Start()
 	{
@@ -38,12 +40,13 @@ public class EnemyManager : MonoBehaviour
 	// Update is called once per frame
 	private void Update () {
 		CheckSpawn();
-		Tick();
+		if (isTicking)
+            Tick();
 	}
 
 	private void CheckSpawn()
 	{
-		if (t >= spawnFreq + enemyCount)
+		if (t >= spawnFreq)
 		{
 			if (enemyCount < enemyMax)
 			{
@@ -65,6 +68,7 @@ public class EnemyManager : MonoBehaviour
 	{
 		GameObject newEnemy = Instantiate(enemyPrefabsArray[faction], startPosition, Quaternion.AngleAxis(180f, Vector3.forward));
 		newEnemy.GetComponent<EnemyBehavior>().EnemyFired += projMan.OnEnemyFired;
+        enemyArray[enemyCount] = newEnemy;
 		enemyCount++;
 	}
 
@@ -81,6 +85,7 @@ public class EnemyManager : MonoBehaviour
 		{
 			Destroy(gObj);
 		}
+        isTicking = true;
 	}
 	
 }

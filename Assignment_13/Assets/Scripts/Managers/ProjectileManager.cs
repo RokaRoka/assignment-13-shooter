@@ -7,6 +7,7 @@ using UnityEngine;
 public class ProjectileEventArgs : EventArgs {
 	public Vector2 spawnPosition { get; set; }
 	public Quaternion spawnRotation { get; set; }
+	public int faction { get; set; }
 }
 
 public class ProjectileManager : MonoBehaviour {
@@ -36,10 +37,10 @@ public class ProjectileManager : MonoBehaviour {
 	{
 		GameObject lazer = Instantiate(playerLazer, initPos, Quaternion.identity);
 	}
-
-	protected virtual void OnEnemyFired(object source, ProjectileEventArgs e) 
+	
+	public virtual void OnEnemyFired(object source, ProjectileEventArgs e) 
 	{
-
+		//FireEnemyProjectile();
 	}
 
 	private void FireEnemyProjectile(Vector2 initPos, Vector2 initRot, int faction)
